@@ -22,7 +22,7 @@ Get this repository to your hard drive using
 
 ::
 
-    git clone https://github.com/mdw771/adorym
+    git clone https://github.com/rhoadesScholar/adorym-E
 
 and then use PIP to build and install:
 
