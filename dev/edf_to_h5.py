@@ -235,5 +235,3 @@ metadata = {
 }
 
 # to_h5(h5_path, h5_name, data, metadata)
-
-# %%
