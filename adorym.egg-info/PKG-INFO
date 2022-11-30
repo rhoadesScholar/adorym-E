@@ -1,0 +1,21 @@
+Metadata-Version: 2.1
+Name: adorym
+Version: 1.0.1
+Summary: Automatic differentiation-based object retrieval with dynamic modeling.
+Home-page: http://github.com/mdw771/adorym.git
+Author: Ming Du
+License: BSD-3
+Keywords: adorym
+Platform: Any
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Scientific/Engineering :: Physics
+Classifier: Topic :: Scientific/Engineering :: Chemistry
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Developers

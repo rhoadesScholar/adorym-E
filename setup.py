@@ -1,14 +1,14 @@
 import setuptools
 
 setuptools.setup(
-    name='adorym',
-    version='1.0.1',
-    author='Ming Du',
-    description='Automatic differentiation-based object retrieval with dynamic modeling.',
+    name='adorym-E',
+    version='0.1.0',
+    author='Jeff Rhoades',
+    description='Automatic differentiation-based object retrieval with dynamic modeling, by Ming Du - Enhanced by Jeff Rhoades',
     packages=setuptools.find_packages(exclude=['docs']),
     include_package_data=True,
-    url='http://github.com/mdw771/adorym.git',
-    keywords=['adorym'],
+    url='https://github.com/rhoadesScholar/adorym-E.git',
+    keywords=['adorym-E', 'adorym', 'automatic differentiation', 'object retrieval', 'dynamic modeling'],
     license='BSD-3',
     platforms='Any',
     classifiers=[

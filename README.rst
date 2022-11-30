@@ -18,6 +18,13 @@ Table of contents
 Installation
 ------------
 
+First, setup and activate a conda environment as follows:
+
+::
+
+    conda create -n adorym-E python=3.9 pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch -c nvidia
+    conda activate adorym-E
+
 Get this repository to your hard drive using
 
 ::
@@ -28,7 +35,7 @@ and then use PIP to build and install:
 
 ::
 
-    pip install ./adorym
+    pip install ./adorym-E
 
 If you will modify internal functions of Adorym, *e.g.*, add new
 forward
@@ -40,7 +47,7 @@ you make changes to the source code:
 
 ::
 
-    pip install -e ./adorym
+    pip install -e ./adorym-E
 
 After installation, type ``python`` to open a Python console, and
 check
