@@ -1,7 +1,7 @@
 # A pseudo Horovod class in case Horovod cannot be imported.
 
-class Hvd(object):
 
+class Hvd(object):
     def __init__(self):
         pass
 
@@ -24,8 +24,7 @@ class Hvd(object):
         return op
 
 
-class Comm():
-
+class Comm:
     def __init__(self):
         pass
 
@@ -57,4 +56,3 @@ class Comm():
 class MPI(object):
 
     COMM_WORLD = Comm()
-

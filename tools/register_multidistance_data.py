@@ -16,9 +16,13 @@ import sys
 import adorym
 
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument('dir', default='.', help='Directory containing raw TIFF files.')
-parser.add_argument('prefix', default='data', help='Prefix to TIFF filenames.')
-parser.add_argument('--ref', default=0, help='Index of the image to be selected as reference for others.')
+parser.add_argument("dir", default=".", help="Directory containing raw TIFF files.")
+parser.add_argument("prefix", default="data", help="Prefix to TIFF filenames.")
+parser.add_argument(
+    "--ref",
+    default=0,
+    help="Index of the image to be selected as reference for others.",
+)
 
 args = parser.parse_args()
 
@@ -29,15 +33,17 @@ i_ref = args.ref
 flist, n_theta, n_dists, raw_img_shape = adorym.parse_source_folder(src_dir, prefix)
 print(flist)
 
-new_folder = os.path.join(os.path.dirname(src_dir), os.path.basename(src_dir) + '_registered')
+new_folder = os.path.join(
+    os.path.dirname(src_dir), os.path.basename(src_dir) + "_registered"
+)
 try:
     os.makedirs(new_folder)
 except:
-    print('Target folder {} exists.'.format(new_folder))
+    print("Target folder {} exists.".format(new_folder))
 
 shift_ls = [None] * n_dists
 for i_theta in range(n_theta):
-    print('Processing theta {}/{}...'.format(i_theta, n_theta))
+    print("Processing theta {}/{}...".format(i_theta, n_theta))
     data = np.zeros([n_dists] + list(raw_img_shape))
     img_ref = np.squeeze(dxchange.read_tiff(flist[i_theta * n_dists + i_ref]))
     data[i_ref] = img_ref
@@ -55,5 +61,9 @@ for i_theta in range(n_theta):
             data[i_dist] = img
     for i_dist, img in enumerate(data):
         fname = flist[i_theta * n_dists + i_dist]
-        dxchange.write_tiff(img, os.path.join(new_folder, os.path.join(os.path.basename(fname))), dtype='float32',
-                            overwrite=True)
+        dxchange.write_tiff(
+            img,
+            os.path.join(new_folder, os.path.join(os.path.basename(fname))),
+            dtype="float32",
+            overwrite=True,
+        )

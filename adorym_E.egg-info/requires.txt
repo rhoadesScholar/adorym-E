@@ -2,7 +2,7 @@ numpy
 scipy
 h5py
 six
-tifffile    
+tifffile
 pandas
 matplotlib
 dxchange

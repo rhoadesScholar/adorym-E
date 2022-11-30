@@ -1,5 +1,7 @@
+LICENSE
 README.rst
-setup.py
+pyproject.toml
+setup.cfg
 adorym/__init__.py
 adorym/array_ops.py
 adorym/constants.py
@@ -18,7 +20,9 @@ adorym/simulation.py
 adorym/util.py
 adorym/visualization.py
 adorym/wrappers.py
-adorym.egg-info/PKG-INFO
-adorym.egg-info/SOURCES.txt
-adorym.egg-info/dependency_links.txt
-adorym.egg-info/top_level.txt
+adorym_E.egg-info/PKG-INFO
+adorym_E.egg-info/SOURCES.txt
+adorym_E.egg-info/dependency_links.txt
+adorym_E.egg-info/requires.txt
+adorym_E.egg-info/top_level.txt
+adorym_E.egg-info/zip-safe
