@@ -49,8 +49,8 @@ params_2idd_gpu = {
     "probe_type": "ifft",
     "n_probe_modes": 5,
     # ===============================
-    "rescale_probe_intensity": True,
-    "free_prop_cm": "inf",
+    # "rescale_probe_intensity": True,
+    # "free_prop_cm": "inf",
     "backend": "pytorch",
     "raw_data_type": "intensity",
     "beamstop": None,
@@ -70,6 +70,9 @@ params_2idd_gpu = {
     "optimize_free_prop": True,
     "optimize_prj_affine": True,
     "optimize_prj_pos_offset": True,
+    "multiscale_level": 4,
+    "randomize_probe_pos": True,
+    "forward_model": adorym.forward_model.MultiDistModel,
 }
 
 params = params_2idd_gpu
