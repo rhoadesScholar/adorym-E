@@ -1,15 +1,15 @@
 # %%
-from collections import defaultdict
+import json
 import os
+from collections import defaultdict
+from glob import glob
+import h5py
+import matplotlib.pyplot as plt
 import numpy as np
 import silx.io as io
-import h5py
-from glob import glob
-import matplotlib.pyplot as plt
-import json
 from PIL import Image
-from tqdm import tqdm
 from skimage.exposure import rescale_intensity
+from tqdm import tqdm
 
 """
 The following is the full structure of the HDf5:
@@ -161,9 +161,15 @@ def get_image_array(edfs):
     return np.array(mats)
 
 
-def get_corrected_image_array(data_edfs, empty_edfs, dark_edfs):
-    dark_avg = get_image_array(dark_edfs).mean(0)
-    empty_avg = get_image_array(empty_edfs).mean(0) - dark_avg
+def get_corrected_image_array(data_edfs, empty_edfs=None, dark_edfs=None):
+    if dark_edfs is not None:
+        dark_avg = get_image_array(dark_edfs).mean(0)
+    else:
+        dark_avg = 0
+    if empty_edfs is not None:
+        empty_avg = get_image_array(empty_edfs).mean(0) - dark_avg
+    else:
+        empty_avg = 1
     data_mat = (get_image_array(data_edfs) - dark_avg) / empty_avg
     return data_mat
 
@@ -189,7 +195,6 @@ def get_positions_dict(
 # if __name__ == "__main__":
 path = "/nrs/funke/rhoadesj/data/XNH/SiemensLH_holonfp_15nm_/"
 prefix = "SiemensLH_holonfp_15nm_"
-prefix = "scan_0"
 h5_path = "/nrs/funke/rhoadesj/data/XNH/"
 h5_name = "SiemensLH_holonfp_15nm.h5"
 # # free_prop_cm = 0.5
@@ -202,19 +207,26 @@ edfs = []
 for file in files:
     edfs.append(io.open(file))
 dark_edfs = edfs[:20]
-data = []
+data = None
 positions = None
 for d in range(4):
     start = 21 + d * 38
     data_edfs = edfs[start : start + 17]
     empty_edfs = edfs[start + 17 : start + 38]
-    data.append(get_corrected_image_array(data_edfs, empty_edfs, dark_edfs))
+    if data is None:
+        # data = get_corrected_image_array(data_edfs, empty_edfs, dark_edfs)
+        data = get_corrected_image_array(data_edfs, None, dark_edfs)
+    else:
+        data = np.concatenate(
+            # (data, get_corrected_image_array(data_edfs, empty_edfs, dark_edfs))
+            (data, get_corrected_image_array(data_edfs, None, dark_edfs))
+        )
     if positions is None:
         positions = get_positions_dict(data_edfs)
     else:
         positions = get_positions_dict(data_edfs, old_dict=positions)
 data = np.array(data)[None, ...]
-temp = edfs[21][list(edfs.keys())[0]]
+temp = edfs[21][list(edfs[21].keys())[0]]
 pixel_size = temp["instrument"]["detector_0"]["others"]["pixel_size"][0]
 metadata = {
     # get the energy
@@ -223,13 +235,13 @@ metadata = {
     "probe_pos_px": np.array(
         [
             [x / pixel_size, y / pixel_size]
-            for x, y in zip(positions["sys"], positions["sxs"])
+            for x, y in zip(positions["sy"], positions["sx"])
         ]
     ),
     # get the pixel size
     "psize_cm": pixel_size * 1e-7,
     # get the free propagation distance
-    "free_prop_cm": positions["szs"] * 1e-7,
+    "free_prop_cm": np.array(positions["sz"]) * 1e-7,
     # # get the slice positions
     # "slice_pos_cm": np.unique(szs)
 }

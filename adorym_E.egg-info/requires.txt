@@ -6,3 +6,6 @@ tifffile
 pandas
 matplotlib
 dxchange
+silx
+scikit-image
+tqdm

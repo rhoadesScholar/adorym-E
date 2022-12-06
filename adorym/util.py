@@ -121,17 +121,17 @@ def initialize_object_for_dp(
                 timestamp=timestr,
             )
         if unknown_type == "delta_beta":
-            obj_delta = dxchange.read_tiff(
+            obj_delta = dxchange.reader.read_tiff(
                 os.path.join(output_folder, "delta_ds_{}.tiff".format(ds_level * 2))
             )
-            obj_beta = dxchange.read_tiff(
+            obj_beta = dxchange.reader.read_tiff(
                 os.path.join(output_folder, "beta_ds_{}.tiff".format(ds_level * 2))
             )
         elif unknown_type == "real_imag":
-            obj_delta = dxchange.read_tiff(
+            obj_delta = dxchange.reader.read_tiff(
                 os.path.join(output_folder, "obj_mag_ds_{}.tiff".format(ds_level * 2))
             )
-            obj_beta = dxchange.read_tiff(
+            obj_beta = dxchange.reader.read_tiff(
                 os.path.join(output_folder, "obj_phase_ds_{}.tiff".format(ds_level * 2))
             )
         obj_delta = upsample_2x(obj_delta)
@@ -2270,7 +2270,7 @@ def fourier_shell_correlation(obj, ref, step_size=1, save_path="fsc", save_mask=
         if os.path.exists(
             os.path.join(save_path, "mask_rad_{:04d}.tiff".format(int(rad)))
         ):
-            mask = dxchange.read_tiff(
+            mask = dxchange.reader.read_tiff(
                 os.path.join(save_path, "mask_rad_{:04d}.tiff".format(int(rad)))
             )
         else:
@@ -2321,7 +2321,7 @@ def fourier_ring_correlation(obj, ref, step_size=1, save_path="frc", save_mask=F
         if os.path.exists(
             os.path.join(save_path, "mask_rad_{:04d}.tiff".format(int(rad)))
         ):
-            mask = dxchange.read_tiff(
+            mask = dxchange.reader.read_tiff(
                 os.path.join(save_path, "mask_rad_{:04d}.tiff".format(int(rad)))
             )
         else:
